@@ -1,0 +1,491 @@
+create database QLTV;
+go
+
+use QLTV;
+go
+
+
+/*==============================================================*/
+/* Table: CTMS                                                  */
+/*==============================================================*/
+DROP TABLE IF EXISTS CTMS;
+GO
+create table CTMS (
+   MADAUSACH              int              not null,
+   MAPHIEUMUONSACH         int              not null,
+   SOLUONG         int           
+   constraint PK_CTMS primary key (MADAUSACH, MAPHIEUMUONSACH)
+)
+go
+
+/*==============================================================*/
+/* Table: CTTS                                                  */
+/*==============================================================*/
+DROP TABLE IF EXISTS CTTS;
+GO
+create table CTTS ( 
+   MADAUSACH               int              not null,
+   MAPHIEUTRA           int              not null,
+   TIENPHAT             int              null,
+   constraint PK_CTTS primary key (MADAUSACH, MAPHIEUTRA)
+)
+go
+
+/*==============================================================*/
+/* Table: DAUSACH                                               */
+/*==============================================================*/
+DROP TABLE IF EXISTS DAUSACH;
+GO
+create table DAUSACH (
+   MADAUSACH            int IDENTITY(1,1) PRIMARY KEY,
+   TENDAUSACH           nvarchar(50)          null,
+   TACGIA               nvarchar(200)         null,
+   NXB                  nvarchar(50)          null,
+   NAMXB                int              null,
+   TONGSO               int              null,
+   VITRI                nvarchar(20)          null,
+   SANCO                int              null,
+   DANGCHOMUON          int              null,
+)
+go
+
+/*==============================================================*/
+/* Table: DOCGIA                                                */
+/*==============================================================*/
+DROP TABLE IF EXISTS DOCGIA;
+GO
+create table DOCGIA ( 
+   MADOCGIA             int IDENTITY(1,1) PRIMARY KEY,
+   HOTEN                nvarchar(40)          null,
+   NGAYSINH             datetime             null,
+   LOAIDG               int          null,
+   DIACHI               nvarchar(50)          null,
+   EMAIL                nvarchar(40)          null,
+   NGLAPTHE             datetime             null,
+   NGDENHAN             datetime          null,
+   TIENNO				int		       null
+)
+go
+
+/*==============================================================*/
+/* Table: HOADON                                                */
+/*==============================================================*/
+DROP TABLE IF EXISTS HOADON;
+GO
+create table HOADON (
+   MAHD            int IDENTITY(1,1) PRIMARY KEY,
+   MADOCGIA           int             not null,
+   TIENTHU              int              null,
+)
+go
+
+/*==============================================================*/
+/* Table: PHIEUMUONSACH                                         */
+/*==============================================================*/
+DROP TABLE IF EXISTS PHIEUMUONSACH;
+GO
+create table PHIEUMUONSACH (
+   MAPHIEUMUONSACH      int IDENTITY(1,1) PRIMARY KEY,
+   MADOCGIA             int              not null,
+   NGAYMUON             datetime             null,
+   HANTRA             datetime             null,
+   TONGSL			int				null,
+   TINHTRANG		int null,
+)
+go
+/*==============================================================*/
+/* Table: PHIEUTRASACH                                          */
+/*==============================================================*/
+DROP TABLE IF EXISTS PHIEUTRASACH;
+GO
+create table PHIEUTRASACH (
+   MAPHIEUTRA           int IDENTITY(1,1) PRIMARY KEY,
+   MAPHIEUMUONSACH             int              not null,
+   NGAYTRA              datetime             null,
+   SONGAYTRATRE         int                  null,
+   TIENPHATKINAY        int              null,
+)
+go
+/*==============================================================*/
+/*							   KHÓA NGOẠI                       */
+/*==============================================================*/
+
+ALTER TABLE PHIEUMUONSACH
+ADD CONSTRAINT FK_MS_DG
+  FOREIGN KEY (MADOCGIA)
+  REFERENCES DOCGIA (MADOCGIA);
+go
+
+ALTER TABLE PHIEUTRASACH
+ADD CONSTRAINT FK_TS_MS
+  FOREIGN KEY (MAPHIEUMUONSACH)
+  REFERENCES PHIEUMUONSACH (MAPHIEUMUONSACH);
+go
+
+ALTER TABLE HOADON
+ADD CONSTRAINT FK_HD_DG
+  FOREIGN KEY (MADOCGIA)
+  REFERENCES DOCGIA (MADOCGIA);
+go
+
+ALTER TABLE CTMS
+ADD CONSTRAINT FK_CTMS_PM
+  FOREIGN KEY (MAPHIEUMUONSACH)
+  REFERENCES PHIEUMUONSACH (MAPHIEUMUONSACH);
+
+go
+
+ALTER TABLE CTMS 
+ADD CONSTRAINT FK_CTMS_DS
+  FOREIGN KEY (MADAUSACH)
+  REFERENCES DAUSACH (MADAUSACH);
+go
+
+ALTER TABLE CTTS 
+ADD CONSTRAINT FK_CTTS_DS
+  FOREIGN KEY (MADAUSACH)
+  REFERENCES DAUSACH (MADAUSACH);
+go
+
+ALTER TABLE CTTS
+ADD CONSTRAINT FK_CTTS_PT
+  FOREIGN KEY (MAPHIEUTRA)
+  REFERENCES PHIEUTRASACH (MAPHIEUTRA);
+go
+
+/*=================================================*/
+/*===				 BANG USER					===*/
+/*=================================================*/
+DROP TABLE IF EXISTS NGUOIDUNG;
+GO
+CREATE TABLE NGUOIDUNG
+(
+        TEN VARCHAR(50) NOT NULL,
+        MATKHAU VARCHAR(30),
+        --QUYEN INT, -- 1: QUảN Lý, 2: THủ THư
+        CONSTRAINT PK_TEN PRIMARY KEY(TEN)
+);
+
+-- Chèn dữ liệu vào bảng DAUSACH
+INSERT INTO DAUSACH (TENDAUSACH, TACGIA, NXB, NAMXB, TONGSO, VITRI, SANCO, DANGCHOMUON)
+VALUES
+    (N'Cuốn sách A', N'Tác giả A', 'NXB A', 2020, 100, N'Kệ 1', 100, 0),
+    (N'Cuốn sách B', N'Tác giả B', 'NXB B', 2018, 160, N'Kệ 2', 150, 10),
+    (N'Cuốn sách C', N'Tác giả C', 'NXB C', 2015, 125, N'Kệ 3', 120, 5),
+    (N'Cuốn sách D', N'Tác giả D', 'NXB D', 2019, 95, N'Kệ 4', 80, 15),
+    (N'Cuốn sách E', N'Tác giả E', 'NXB E', 2017, 98, N'Kệ 5', 90, 8),
+    (N'Cuốn sách F', N'Tác giả F', 'NXB F', 2016, 113, N'Kệ 6', 110, 3),
+    (N'Cuốn sách G', N'Tác giả G', 'NXB G', 2022, 150, N'Kệ 7', 130, 20),
+    (N'Cuốn sách H', N'Tác giả H', 'NXB H', 2021, 82, N'Kệ 8', 70, 12),
+    (N'Cuốn sách I', N'Tác giả I', 'NXB I', 2014, 107, N'Kệ 9', 100, 7),
+    (N'Cuốn sách J', N'Tác giả J', 'NXB J', 2020, 158, N'Kệ 10', 140, 18);
+select * from DAUSACH
+-- Chèn dữ liệu vào bảng NGUOIDUNG
+insert into NGUOIDUNG values ('hai','hai');
+insert into NGUOIDUNG values ('long','long');
+insert into NGUOIDUNG values ('minh','minh');
+insert into NGUOIDUNG values ('thuthu','thuthu');
+select* from NGUOIDUNG
+-- Chèn dữ liệu vào bảng DOCGIA
+INSERT INTO DOCGIA (HOTEN, NGAYSINH, LOAIDG, DIACHI, EMAIL, NGLAPTHE, NGDENHAN, TIENNO)
+VALUES
+    (N'Nguyễn Văn A', '1990-01-15', 0, N'Địa chỉ A', 'emailA@example.com', '2022-01-01', '2022-12-31', 0),
+    (N'Trần Thị B', '1985-05-20', 1, N'Địa chỉ B', 'emailB@example.com', '2021-03-10', '2022-03-10', 0),
+    (N'Lê Văn C', '1995-07-25',0, N'Địa chỉ C', 'emailC@example.com', '2022-02-01', '2023-02-01', 0),
+    (N'Phạm Thị D', '1988-11-10', 1, N'Địa chỉ D', 'emailD@example.com', '2021-04-15', '2022-04-15', 0),
+    (N'Hoàng Văn E', '1993-03-08', 0, N'Địa chỉ E', 'emailE@example.com', '2022-05-20', '2023-05-20', 0),
+    (N'Trương Thị F', '1980-09-18', 1, N'Địa chỉ F', 'emailF@example.com', '2021-06-25', '2022-06-25', 0),
+    (N'Phan Văn G', '1998-02-28',0, N'Địa chỉ G', 'emailG@example.com', '2022-07-30', '2023-07-30', 0),
+    (N'Doan Thị H', '1983-06-05', 1, N'Địa chỉ H', 'emailH@example.com', '2021-08-05', '2022-08-05', 0),
+    (N'Vũ Văn I', '1991-12-12', 0, N'Địa chỉ I', 'emailI@example.com', '2022-09-10', '2023-09-10', 0),
+    (N'Bùi Thị K', '1986-04-22', 1, N'Địa chỉ K', 'emailK@example.com', '2021-10-15', '2022-10-15', 0);
+select* from DOCGIA
+GO
+
+
+/*Proc THEMPMS thực hiện thêm phiếu mượn sach và thêm ct phiếu mượn*/
+
+--DROP PROCEDURE THEMPMS
+DROP PROCEDURE IF EXISTS THEMPMS
+GO
+CREATE PROCEDURE THEMPMS
+    @MaDocGia INT,
+    @NgayMuon DATE,
+    @HanTra DATE,
+    @TongSoLuong INT,
+    @TinhTrang INT,
+    @DsSachMuon XML -- Dùng XML để truyền danh sách sách muốn mượn
+AS
+BEGIN
+    -- Tạo bảng tạm để lưu thông tin sách muốn mượn
+    CREATE TABLE #TempDsSachMuon (
+        MaDauSach INT,
+        SoLuong INT
+    )
+
+    -- Insert dữ liệu từ XML vào bảng tạm
+    INSERT INTO #TempDsSachMuon (MaDauSach, SoLuong)
+    SELECT
+        ParamValues.x.value('(MaDauSach)[1]', 'INT') AS MaDauSach,
+        ParamValues.x.value('(SoLuong)[1]', 'INT') AS SoLuong
+    FROM
+        @DsSachMuon.nodes('/DsSachMuon/Sach') AS ParamValues(x)
+
+    -- Insert dữ liệu vào bảng PHIEUMUONSACH
+    INSERT INTO PHIEUMUONSACH (MADOCGIA, NGAYMUON, HANTRA, TONGSL, TINHTRANG)
+    VALUES (@MaDocGia, @NgayMuon, @HanTra, @TongSoLuong, @TinhTrang)
+
+    -- Insert dữ liệu vào bảng CTMS từ bảng tạm
+	-- Lấy MAPHIEUMUONSACH vừa thêm vào
+    DECLARE @MAPHIEUMUONSACH INT = SCOPE_IDENTITY();
+    INSERT INTO CTMS (MADAUSACH, MAPHIEUMUONSACH, SOLUONG)
+    SELECT MaDauSach, @MAPHIEUMUONSACH, SoLuong
+    FROM #TempDsSachMuon;
+
+    -- Cập nhật bảng DAUSACH
+    UPDATE DAUSACH
+    SET SANCO = SANCO - T.SoLuong,
+        DANGCHOMUON = DANGCHOMUON + T.SoLuong
+    FROM DAUSACH
+    INNER JOIN #TempDsSachMuon T ON DAUSACH.MADAUSACH = T.MaDauSach
+
+    -- Xóa bảng tạm
+    DROP TABLE #TempDsSachMuon
+END
+GO  -- Thêm GO ở đây để kết thúc batch SQL
+
+-- Testcase 1 cho stored procedure THEMPMS
+DECLARE @TestMaDocGia INT = 1;
+DECLARE @TestNgayMuon DATE = '2023-01-01';
+DECLARE @TestHanTra DATE = '2023-01-10';
+DECLARE @TestTongSoLuong INT = 3;
+DECLARE @TestTinhTrang INT = 0;
+
+DECLARE @TestDsSachMuon XML = '<DsSachMuon>
+                                    <Sach>
+                                        <MaDauSach>1</MaDauSach>
+                                        <SoLuong>2</SoLuong>
+                                    </Sach>
+                                    <Sach>
+                                        <MaDauSach>2</MaDauSach>
+                                        <SoLuong>1</SoLuong>
+                                    </Sach>
+                                </DsSachMuon>';
+
+-- Execute stored procedure THEMPMS
+EXEC THEMPMS
+    @MaDocGia = @TestMaDocGia,
+    @NgayMuon = @TestNgayMuon,
+    @HanTra = @TestHanTra,
+    @TongSoLuong = @TestTongSoLuong,
+    @TinhTrang = @TestTinhTrang,
+    @DsSachMuon = @TestDsSachMuon;
+
+GO
+-- Testcase 2 cho stored procedure THEMPMS
+DECLARE @TestMaDocGia INT = 5;
+DECLARE @TestNgayMuon DATE = '2023-01-03';
+DECLARE @TestHanTra DATE = '2023-01-12';
+DECLARE @TestTongSoLuong INT = 22;
+DECLARE @TestTinhTrang INT = 0;
+
+DECLARE @TestDsSachMuon XML = '<DsSachMuon>
+                                    <Sach>
+                                        <MaDauSach>4</MaDauSach>
+                                        <SoLuong>20</SoLuong>
+                                    </Sach>
+                                    <Sach>
+                                        <MaDauSach>7</MaDauSach>
+                                        <SoLuong>2</SoLuong>
+                                    </Sach>
+                                </DsSachMuon>';
+
+-- Execute stored procedure THEMPMS
+EXEC THEMPMS
+    @MaDocGia = @TestMaDocGia,
+    @NgayMuon = @TestNgayMuon,
+    @HanTra = @TestHanTra,
+    @TongSoLuong = @TestTongSoLuong,
+    @TinhTrang = @TestTinhTrang,
+    @DsSachMuon = @TestDsSachMuon;
+GO
+-- Testcase 3 cho stored procedure THEMPMS
+DECLARE @TestMaDocGia INT = 4;
+DECLARE @TestNgayMuon DATE = '2023-01-20';
+DECLARE @TestHanTra DATE = '2023-01-27';
+DECLARE @TestTongSoLuong INT = 10;
+DECLARE @TestTinhTrang INT = 0;
+
+DECLARE @TestDsSachMuon XML = '<DsSachMuon>
+                                    <Sach>
+                                        <MaDauSach>4</MaDauSach>
+                                        <SoLuong>5</SoLuong>
+                                    </Sach>
+                                    <Sach>
+                                        <MaDauSach>3</MaDauSach>
+                                        <SoLuong>5</SoLuong>
+                                    </Sach>
+                                </DsSachMuon>';
+
+-- Execute stored procedure THEMPMS
+EXEC THEMPMS
+    @MaDocGia = @TestMaDocGia,
+    @NgayMuon = @TestNgayMuon,
+    @HanTra = @TestHanTra,
+    @TongSoLuong = @TestTongSoLuong,
+    @TinhTrang = @TestTinhTrang,
+    @DsSachMuon = @TestDsSachMuon;
+GO
+-- Select data from PHIEUMUONSACH and CTMS to verify the result
+SELECT * FROM PHIEUMUONSACH;
+GO
+SELECT * FROM CTMS;
+GO
+SELECT * FROM DAUSACH WHERE MADAUSACH=4 OR MADAUSACH=7
+GO
+
+/* PROC GIA HẠN THẺ ĐỘC GIẢ THÊM 2 THÁNG*/
+DROP PROCEDURE IF EXISTS GIAHANTHE
+GO
+CREATE PROCEDURE GIAHANTHE
+    @MADOCGIA int
+AS
+BEGIN
+    UPDATE DOCGIA
+    SET NGDENHAN = DATEADD(month, 2, NGDENHAN)
+    WHERE MADOCGIA = @MADOCGIA;
+END;
+--test GIAHANTHE --
+GO
+EXEC GIAHANTHE @MADOCGIA = 1;
+EXEC GIAHANTHE @MADOCGIA = 4;
+GO
+SELECT * FROM DOCGIA WHERE MADOCGIA=4 or MADOCGIA=1
+GO
+/*PROC thêm phiếu trả sách thực hiện cac thao tác liên quan đến CTTS, DAUSACH, PHIEUMUONSACH,DOCGIA*/
+DROP PROCEDURE IF EXISTS THEMPTS;
+GO
+CREATE PROCEDURE THEMPTS
+    @MAPHIEUMUONSACH INT,
+    @NGAYTRA DATETIME
+AS
+BEGIN
+    DECLARE @SONGAYTRATRE INT;
+    DECLARE @TIENPHATKINAY INT;
+
+    -- Tính số ngày trả trễ
+	DECLARE @HANTRA DATETIME;
+	SELECT @HANTRA = HANTRA
+	FROM PHIEUMUONSACH
+	WHERE MAPHIEUMUONSACH = @MAPHIEUMUONSACH;
+	SET @SONGAYTRATRE = IIF(@NGAYTRA <= @HANTRA, 0, DATEDIFF(DAY, @HANTRA, @NGAYTRA));
+
+    -- Tính tiền phạt kì này
+    SET @TIENPHATKINAY = @SONGAYTRATRE * (SELECT TONGSL FROM PHIEUMUONSACH WHERE MAPHIEUMUONSACH = @MAPHIEUMUONSACH) * 5000;
+
+    -- Insert vào bảng PHIEUTRASACH
+    INSERT INTO PHIEUTRASACH (MAPHIEUMUONSACH, NGAYTRA, SONGAYTRATRE, TIENPHATKINAY)
+    VALUES (@MAPHIEUMUONSACH, @NGAYTRA, @SONGAYTRATRE, @TIENPHATKINAY);
+
+    -- Insert vào bảng CTTS
+    INSERT INTO CTTS (MADAUSACH, MAPHIEUTRA, TIENPHAT)
+    SELECT CTMS.MADAUSACH, PHIEUTRASACH.MAPHIEUTRA, CTMS.SOLUONG * 5000*@SONGAYTRATRE
+    FROM CTMS
+    INNER JOIN PHIEUTRASACH ON CTMS.MAPHIEUMUONSACH = PHIEUTRASACH.MAPHIEUMUONSACH
+    WHERE CTMS.MAPHIEUMUONSACH = @MAPHIEUMUONSACH;
+
+    -- Update cho DAUSACH
+    UPDATE DAUSACH
+    SET SANCO = SANCO + CTMS.SOLUONG,
+        DANGCHOMUON = DANGCHOMUON - CTMS.SOLUONG
+    FROM DAUSACH
+    INNER JOIN CTMS ON DAUSACH.MADAUSACH = CTMS.MADAUSACH
+    WHERE CTMS.MAPHIEUMUONSACH = @MAPHIEUMUONSACH;
+
+    -- Cập nhật TINHTRANG trong PHIEUMUONSACH
+    UPDATE PHIEUMUONSACH
+    SET TINHTRANG = 1
+    WHERE MAPHIEUMUONSACH = @MAPHIEUMUONSACH;
+
+    -- Cập nhật TIENNO trong DOCGIA
+    UPDATE DOCGIA
+    SET TIENNO = TIENNO + @TIENPHATKINAY
+    WHERE MADOCGIA = (SELECT MADOCGIA FROM PHIEUMUONSACH WHERE MAPHIEUMUONSACH = @MAPHIEUMUONSACH);
+END
+GO
+
+-- Testcase 1 THEMPTS trường hợp 1 không quá hạn
+DECLARE @MAPHIEUMUONSACH_TEST1 INT = 1;
+DECLARE @NGAYTRA_TEST1 DATETIME = '2023-01-10';
+EXEC THEMPTS @MAPHIEUMUONSACH_TEST1, @NGAYTRA_TEST1;
+GO
+
+-- Testcase 2 THEMPTS trường hợp 2 là quá hạn 5 ngày
+GO
+DECLARE @MAPHIEUMUONSACH_TEST2 INT = 2;
+DECLARE @NGAYTRA_TEST2 DATETIME = '2023-01-17';
+EXEC THEMPTS @MAPHIEUMUONSACH_TEST2, @NGAYTRA_TEST2;
+
+GO
+-- check result
+SELECT * FROM PHIEUTRASACH WHERE MAPHIEUMUONSACH = 1 OR MAPHIEUMUONSACH=2;
+SELECT * FROM CTTS WHERE MAPHIEUTRA = (SELECT MAPHIEUTRA FROM PHIEUTRASACH WHERE MAPHIEUMUONSACH = 1);
+SELECT * FROM CTTS WHERE MAPHIEUTRA = (SELECT MAPHIEUTRA FROM PHIEUTRASACH WHERE MAPHIEUMUONSACH=2);
+
+SELECT * FROM PHIEUMUONSACH;
+SELECT * FROM DOCGIA;
+SELECT * FROM DAUSACH WHERE MADAUSACH in(1,2,4,7);
+GO
+
+
+/*PROC THÊM HÓA ĐƠN, THỰC HIỆN INSERT HÓA ĐƠN VÀ UPDATE TIỀN NỢ CHO ĐỘC GIẢ */
+DROP PROCEDURE IF EXISTS THEMHOADON
+GO
+CREATE PROCEDURE THEMHOADON
+    @MADOCGIA INT,
+    @TIENTHU INT
+AS
+BEGIN
+    -- Chèn dữ liệu vào bảng HOADON
+    INSERT INTO HOADON (MADOCGIA, TIENTHU)
+    VALUES (@MADOCGIA, @TIENTHU);
+
+    -- Cập nhật giá trị TIENNO trong bảng DOCGIA
+    UPDATE DOCGIA
+    SET TIENNO = TIENNO - @TIENTHU
+    WHERE MADOCGIA = @MADOCGIA
+END;
+GO
+-- TESTCASE THEMHOADON CHO MADOCGIA 5 VÌ NÓ MS CÓ TIENNO 550000
+--CHECK TRƯỚC KHI EXEC
+
+SELECT * FROM HOADON
+SELECT TIENNO FROM DOCGIA WHERE MADOCGIA= 5
+GO
+--EXEC PROC
+EXEC THEMHOADON @MADOCGIA = 5, @TIENTHU = 500000;
+GO
+--CHECK SAU KHI EXEC
+SELECT * FROM HOADON
+SELECT TIENNO FROM DOCGIA WHERE MADOCGIA= 5
+GO
+
+-- select dữ liệu cho báo cáo thống kê 6.1
+SELECT DAUSACH.MADAUSACH,DAUSACH.TENDAUSACH,COUNT(PHIEUMUONSACH.MAPHIEUMUONSACH) AS SOLUOTMUON
+FROM   DAUSACH
+LEFT JOIN CTMS ON DAUSACH.MADAUSACH = CTMS.MADAUSACH
+LEFT JOIN PHIEUMUONSACH ON CTMS.MAPHIEUMUONSACH = PHIEUMUONSACH.MAPHIEUMUONSACH
+WHERE  MONTH(PHIEUMUONSACH.NGAYMUON) = 1 AND YEAR(PHIEUMUONSACH.NGAYMUON) = 2023
+GROUP BY    DAUSACH.MADAUSACH, DAUSACH.TENDAUSACH
+ORDER BY    SOLUOTMUON DESC
+GO
+-- select dữ liệu cho báo cáo thống kê 6.2
+-- tổng tiền phạt sẽ là NULL nếu chưa thực hiện trả sách
+SELECT  DOCGIA.MADOCGIA, DOCGIA.HOTEN, SUM(ISNULL(PHIEUMUONSACH.TONGSL, 0)) AS TONGSLSACHMUON,
+    SUM(ISNULL(PHIEUTRASACH.TIENPHATKINAY, 0)) AS TONGTIENPHAT
+FROM  DOCGIA
+LEFT JOIN PHIEUMUONSACH ON DOCGIA.MADOCGIA = PHIEUMUONSACH.MADOCGIA
+LEFT JOIN PHIEUTRASACH ON PHIEUMUONSACH.MAPHIEUMUONSACH = PHIEUTRASACH.MAPHIEUMUONSACH
+WHERE MONTH(PHIEUMUONSACH.NGAYMUON) = 1 AND YEAR(PHIEUMUONSACH.NGAYMUON) = 2023
+GROUP BY  DOCGIA.MADOCGIA, DOCGIA.HOTEN
+ORDER BY  TONGSLSACHMUON DESC;
