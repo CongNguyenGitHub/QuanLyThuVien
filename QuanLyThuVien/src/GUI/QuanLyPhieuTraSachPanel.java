@@ -13,7 +13,6 @@ import DTO.PhieuTraSach;
 import DTO.ChiTietTraSach;
 import java.awt.Color;
 import javax.swing.*;
-import DAO.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,8 +26,7 @@ public class QuanLyPhieuTraSachPanel extends javax.swing.JPanel {
     /**
      * Creates new form QuanLyPhieuTraSachPanel
      */
-    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-     public static String sql = "select * from PHIEUTRASACH order by MAPHIEUMUONSACH asc";
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy ");
     public QuanLyPhieuTraSachPanel() {
         initComponents();
         setBackground(Color.white);    
@@ -36,6 +34,7 @@ public class QuanLyPhieuTraSachPanel extends javax.swing.JPanel {
         txtMaDocGia.setEnabled(false);
         txtTenDocGia.setEnabled(false);
         txtNgayTra.setEnabled(false);
+        this.tbCTTS.setEnabled(false);
     }
     public void lamMoi(){
         Vector<Integer> listMaPhieuMuonSach=DAO.PhieuTraSachDAO.getListMaPhieuMuonSach();
@@ -46,7 +45,12 @@ public class QuanLyPhieuTraSachPanel extends javax.swing.JPanel {
         for(int i=0;i<listMaPhieuMuonSach.size();i++){
             this.cbMaPhieuMuonSach.addItem(String.valueOf(listMaPhieuMuonSach.get(i)));
         }
-        DuLieuBang.Load(sql, tbPhieuTraSach);
+        DefaultTableModel model = (DefaultTableModel) this.tbPhieuTraSach.getModel();
+        model.setRowCount(0);
+        Vector<PhieuTraSach> listPTS=DAO.PhieuTraSachDAO.getListPhieuTraSach();
+        for (PhieuTraSach pts:listPTS){
+            model.addRow(new Object[]{pts.getMaPhieuTra(),pts.getMaPhieuMuon(),pts.getNgayTra(),pts.getSoNgayTraTre(),pts.getTienPhatKiNay()});          
+        }
     }
 
     /**
@@ -110,28 +114,33 @@ public class QuanLyPhieuTraSachPanel extends javax.swing.JPanel {
         });
         jToolBar1.add(btThemMoi);
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(205, 245, 253));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.pink, null));
         jPanel1.setPreferredSize(new java.awt.Dimension(309, 394));
 
+        labelMaPhieuMuon.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         labelMaPhieuMuon.setText("Mã phiếu mượn sách");
 
+        lbMaDG.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbMaDG.setText("Mã độc giả");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Ngày trả");
 
+        tbCTTS.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tbCTTS.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "MADAUSACH", "TENDAUSACH", "TIENPHAT"
+                "Mã đầu sách", "Tên đầu sách", "Tiền phạt"
             }
         ));
         jScrollPane2.setViewportView(tbCTTS);
 
         txtNgayTra.setEditable(false);
 
+        lbTenDocGia.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbTenDocGia.setText("Tên độc giả");
 
         cbMaPhieuMuonSach.addActionListener(new java.awt.event.ActionListener() {
@@ -186,6 +195,7 @@ public class QuanLyPhieuTraSachPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        tbPhieuTraSach.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tbPhieuTraSach.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -240,7 +250,7 @@ public class QuanLyPhieuTraSachPanel extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "MAPHIEUTRA", "MAPHIEUMUONSACH", "NGAYTRA", "SONGAYTRATRE", "TIENPHATKINAY"
+                "Mã phiếu trả", "Mã phiếu mượn sách", "Ngày trả", "Số ngày trả trễ", "Tiền phạt kì này"
             }
         ));
         tbPhieuTraSach.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -250,10 +260,10 @@ public class QuanLyPhieuTraSachPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tbPhieuTraSach);
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(205, 245, 253));
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(12, 53, 106));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("QUẢN LÝ PHIẾU TRẢ SÁCH");
         jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 0, 204), null));
@@ -262,7 +272,7 @@ public class QuanLyPhieuTraSachPanel extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,7 +339,6 @@ public class QuanLyPhieuTraSachPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btThemMoiActionPerformed
 
     private void tbPhieuTraSachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPhieuTraSachMouseClicked
-        // TODO add your handling code here:
 
     }//GEN-LAST:event_tbPhieuTraSachMouseClicked
 

@@ -5,17 +5,10 @@
  */
 package GUI;
 
-/**
- *
- * @author minh
- */
+
 import DTO.PhieuMuonSach;
-import DAO.DuLieuBang;
 import java.awt.Color;
-import java.sql.*;
 import javax.swing.*;
-import DAO.*;
-//import com.sun.glass.events.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -25,18 +18,14 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Vector;
+import java.util.Date;
 public class QuanLyPhieuMuonSachPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form QuanLyPhieuMuonSachPanel
      */
-    public static String sql = "select * from PHIEUMUONSACH order by MAPHIEUMUONSACH asc";
-    public static Connection conn = Connect.getConnect();
-    public static PreparedStatement pst = null;
-    public static ResultSet rs = null;
-    SimpleDateFormat formatter = new SimpleDateFormat("d MMM, y");
-    java.util.Date date = new java.util.Date();
-    
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
     public QuanLyPhieuMuonSachPanel() {
         initComponents();
         setBackground(Color.white);
@@ -48,8 +37,13 @@ public class QuanLyPhieuMuonSachPanel extends javax.swing.JPanel {
 
     private void lamMoi(){
         this.cbMaDocGia.setEnabled(true);
-        txtNgayMuon.setText(formatter.format(date));
-        DuLieuBang.Load(sql, tbPhieuMuonSach);
+        txtNgayMuon.setText(formatter.format(new Date()));
+        DefaultTableModel model1 = (DefaultTableModel) this.tbPhieuMuonSach.getModel();
+        model1.setRowCount(0);
+        Vector<Vector<Object>> listPMS=DAO.PhieuMuonSachDAO.getListPhieuMuonSach();
+        for (Vector<Object> pms:listPMS){
+            model1.addRow(pms);          
+        }
         Vector<Integer> listMaDocGia=DAO.PhieuMuonSachDAO.getListMaDocGia();
         for(int i=0;i<listMaDocGia.size();i++){
             this.cbMaDocGia.addItem(String.valueOf(listMaDocGia.get(i)));
@@ -58,8 +52,8 @@ public class QuanLyPhieuMuonSachPanel extends javax.swing.JPanel {
         for(int i=0;i<listMaSach.size();i++){
             this.cbMaDauSach.addItem(String.valueOf(listMaSach.get(i)));
         }
-        DefaultTableModel model = (DefaultTableModel) tbSachMuon.getModel();
-        model.setRowCount(0);
+        DefaultTableModel model2 = (DefaultTableModel) tbSachMuon.getModel();
+        model2.setRowCount(0);
     }
   
 
@@ -110,23 +104,27 @@ public class QuanLyPhieuMuonSachPanel extends javax.swing.JPanel {
         });
         jToolBar1.add(btThemMoi);
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(205, 245, 253));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.pink, null));
         jPanel1.setPreferredSize(new java.awt.Dimension(309, 394));
 
+        lbcbb.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbcbb.setText("Mã độc giả");
         lbcbb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Ngày mượn");
 
+        lbMaDauSach.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbMaDauSach.setText("Mã đầu sách");
 
+        tbSachMuon.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tbSachMuon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "MADAUSACH", "TENDAUSACH", "SOLUONG"
+                "Mã đầu sách", "Tên đầu sách", "Số lượng"
             }
         ));
         tbSachMuon.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -148,6 +146,7 @@ public class QuanLyPhieuMuonSachPanel extends javax.swing.JPanel {
             }
         });
 
+        lbTenDocGia.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbTenDocGia.setText("Tên độc giả");
 
         cbMaDauSach.addActionListener(new java.awt.event.ActionListener() {
@@ -156,6 +155,7 @@ public class QuanLyPhieuMuonSachPanel extends javax.swing.JPanel {
             }
         });
 
+        btThemSach.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btThemSach.setText("Thêm sách");
         btThemSach.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,8 +163,10 @@ public class QuanLyPhieuMuonSachPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Số lượng");
 
+        btXoaXach.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btXoaXach.setText("Xóa sách");
         btXoaXach.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -232,9 +234,10 @@ public class QuanLyPhieuMuonSachPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btThemSach)
                     .addComponent(btXoaXach))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
+        tbPhieuMuonSach.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tbPhieuMuonSach.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -289,7 +292,7 @@ public class QuanLyPhieuMuonSachPanel extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "MAPHIEUMUONSACH", "MADOCGIA", "NGAYMUON"
+                "Mã phiếu mượn sách", "Mã độc giả", "Ngày mượn"
             }
         ));
         tbPhieuMuonSach.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -299,10 +302,10 @@ public class QuanLyPhieuMuonSachPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tbPhieuMuonSach);
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(205, 245, 253));
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(12, 53, 106));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("QUẢN LÝ PHIẾU MƯỢN SÁCH");
         jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 0, 204), null));
@@ -311,7 +314,7 @@ public class QuanLyPhieuMuonSachPanel extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1074, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,7 +330,7 @@ public class QuanLyPhieuMuonSachPanel extends javax.swing.JPanel {
                     .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -446,7 +449,10 @@ public class QuanLyPhieuMuonSachPanel extends javax.swing.JPanel {
            JOptionPane.showMessageDialog(null,"Bạn chưa nhập số lượng","Thông báo",1);
        }
        else if (!isNumeric(this.txtSoLuong.getText())) {
-            JOptionPane.showMessageDialog(null,"Số lượng phải là số","Thông báo",1);
+           JOptionPane.showMessageDialog(null,"Số lượng phải là số","Thông báo",1);
+       }
+       else if(Integer.parseInt(this.txtSoLuong.getText())<=0){
+           JOptionPane.showMessageDialog(null,"Số lượng sách phải lớn hơn không!","Thông báo",1);
        }
        else return true;
        return false;

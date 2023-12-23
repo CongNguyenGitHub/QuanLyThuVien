@@ -17,10 +17,6 @@ import java.sql.Date;
  * @author Admin
  */
 import java.sql.*;
-import java.lang.Object.*;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class PhieuTraSachDAO {
     public static Connection conn = Connect.getConnect();
@@ -134,6 +130,26 @@ public class PhieuTraSachDAO {
             } catch (SQLException e) {
                 throw new ArithmeticException(e.getMessage());
             }
+    }
+    public static Vector<PhieuTraSach> getListPhieuTraSach(){
+        String sql = "SELECT * from PHIEUTRASACH ORDER BY MAPHIEUMUONSACH ASC";
+        Vector<PhieuTraSach> listPTS = new Vector<>();
+        try (PreparedStatement stm = conn.prepareStatement(sql)) {
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                PhieuTraSach pts=new PhieuTraSach();
+                pts.setMaPhieuTra(rs.getInt("MAPHIEUTRA"));
+                pts.setMaPhieuMuon(rs.getInt("MAPHIEUMUONSACH"));
+                pts.setNgayTra(rs.getDate("NGAYTRA"));
+                pts.setSoNgayTraTre(rs.getInt("SONGAYTRATRE"));
+                pts.setTienPhatKiNay(rs.getInt("TIENPHATKINAY"));
+                listPTS.add(pts);
+            }
+
+        } catch (SQLException e) {
+            throw new ArithmeticException(e.getMessage());
+        }
+        return listPTS;
     }
 }
 

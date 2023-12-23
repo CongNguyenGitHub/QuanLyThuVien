@@ -34,10 +34,6 @@ public class BaoCaoThongKePanel extends javax.swing.JPanel {
     /**
      * Creates new form BaoCaoThongKePanel
      */
-    public Connection conn;
-    public static PreparedStatement pst = null;
-    public static ResultSet rs = null;
-    public static CallableStatement stmt = null ;
     
     public BaoCaoThongKePanel() {
         initComponents();
@@ -156,11 +152,11 @@ public class BaoCaoThongKePanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(205, 245, 253));
 
-        jLabel3.setBackground(new java.awt.Color(255, 204, 204));
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel3.setBackground(new java.awt.Color(205, 245, 253));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(12, 53, 106));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("BÁO CÁO THỐNG KÊ");
         jLabel3.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 0, 255), null));
@@ -169,7 +165,7 @@ public class BaoCaoThongKePanel extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,7 +195,7 @@ public class BaoCaoThongKePanel extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnBarChart, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 41, Short.MAX_VALUE))
+                .addGap(0, 223, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -266,7 +262,7 @@ public class BaoCaoThongKePanel extends javax.swing.JPanel {
 
         JFreeChart barChart = ChartFactory.createBarChart( 
                 "Thống kê mượn sách",
-                "Mã đọc giả","Tổng tiền phạt"
+                "Mã độc giả","Tổng tiền phạt"
                 , dataset, PlotOrientation.VERTICAL, false, true, false);
         this.pnBarChart.removeAll();
         this.pnBarChart.setLayout(new CardLayout());
@@ -285,7 +281,7 @@ public class BaoCaoThongKePanel extends javax.swing.JPanel {
             Map<Integer,Integer> ds=new HashMap<>();
             if(this.cbLoaiThongKe.getSelectedIndex()==0){
                 lamMoi();
-                columnData=new String[] {"MADAUSACH","TENDAUSACH","SOLUOTMUON"};
+                columnData=new String[] {"Mã đầu sách","Tên đầu sách","Số lượt mượn"};
                 for(String columnName:columnData){
                     model.addColumn(columnName);
                 }
@@ -302,7 +298,7 @@ public class BaoCaoThongKePanel extends javax.swing.JPanel {
             }
             else {
                 lamMoi();
-                columnData=new String[] {"MADOCGIA","TENDOCGIA","TONGSLSACHMUON","TONGTIENPHAT"};
+                columnData=new String[] {"Mã độc giả","Tên độc giả","Tổng số lượng sách mượn","Tổng tiền phạt"};
                 for(String columnName:columnData){
                     model.addColumn(columnName);
                 }

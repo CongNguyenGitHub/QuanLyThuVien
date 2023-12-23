@@ -18,15 +18,25 @@ public class HoaDon  {
    private int maHoaDon;
    private int maDocGia;
    private int tienThu;
+   private Date ngayHoaDon;
    
    public HoaDon(){
    
 }
 
-    public HoaDon(int maHoaDon, int maDocGia, int tienThu) {
+    public HoaDon(int maHoaDon, int maDocGia, int tienThu,Date ngayHoaDon) {
         this.maHoaDon = maHoaDon;
         this.maDocGia = maDocGia;
         this.tienThu = tienThu;
+        this.ngayHoaDon=ngayHoaDon;
+    }
+
+    public void setNgayHoaDon(Date ngayHoaDon) {
+        this.ngayHoaDon = ngayHoaDon;
+    }
+
+    public Date getNgayHoaDon() {
+        return ngayHoaDon;
     }
 
     public int getMaHoaDon() {

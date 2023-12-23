@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.sql.ResultSet;
+import java.util.Vector;
 
 public class DauSachDAO {
     
@@ -18,7 +19,7 @@ public class DauSachDAO {
     public static boolean ThemDauSach(DauSach ds) {
         String sql = "insert into DAUSACH (TENDAUSACH, TACGIA, NXB, NAMXB, VITRI, TONGSO, DANGCHOMUON, SANCO) values (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stm = conn.prepareStatement(sql);) {
-            stm.setString(1, ds.getTenDS());
+            stm.setString(1, ds.getTenDauSach());
             stm.setString(2, ds.getTacGia());
             stm.setString(3, ds.getNXB());
             stm.setInt(4, ds.getNamXB());
@@ -33,22 +34,10 @@ public class DauSachDAO {
         }
     }
     
-    public static boolean SuaDauSach(DauSach ds, int mds) {
-        String query = "select DANGCHOMUON from DAUSACH where MADAUSACH = ?";
-        int dangChoMuon = 0;
-        try (PreparedStatement stm = conn.prepareStatement(query);) {
-            stm.setInt(1, mds);
-            ResultSet rs = stm.executeQuery();
-            if (rs.next()) dangChoMuon = rs.getInt("DANGCHOMUON");
-        } catch (SQLException ex) {
-            throw new ArithmeticException(ex.getMessage());
-        }
-        ds.setDangChoMuon(dangChoMuon);
-        ds.setSanCo();
-        
+    public static boolean SuaDauSach(DauSach ds, int mds) {       
         String sql = "update DAUSACH set TENDAUSACH = ?, TACGIA = ?, NXB = ?, NAMXB=?, VITRI = ?, TONGSO = ?, SANCO = ? where MADAUSACH = ?";
         try (PreparedStatement stm = conn.prepareStatement(sql);) {
-            stm.setString(1, ds.getTenDS());
+            stm.setString(1, ds.getTenDauSach());
             stm.setString(2, ds.getTacGia());
             stm.setString(3, ds.getNXB());
             stm.setInt(4, ds.getNamXB());
@@ -83,5 +72,29 @@ public class DauSachDAO {
             throw new ArithmeticException(ex.getMessage());
         }
         return ts>=tongSo;
+    }
+      public static Vector<DauSach> getListDauSach(){ 
+        String sql ="SELECT * from DAUSACH ORDER BY MADAUSACH ASC";
+        Vector<DauSach> listDauSach = new Vector<>();
+        try (PreparedStatement stm = conn.prepareStatement(sql)) {
+             ResultSet rs = stm.executeQuery();
+             while(rs.next()){
+                 DauSach ds=new DauSach();
+                 ds.setMaDauSach(rs.getInt("MADAUSACH"));
+                 ds.setTenDauSach(rs.getString("TENDAUSACH"));
+                 ds.setTacGia(rs.getString("TACGIA"));
+                 ds.setNXB(rs.getString("NXB"));
+                 ds.setNamXB(rs.getInt("NAMXB"));
+                 ds.setTongSo(rs.getInt("TONGSO"));
+                 ds.setViTri(rs.getString("VITRI"));
+                 ds.setSanCo(rs.getInt("SANCO"));
+                 ds.setDangChoMuon(rs.getInt("DANGCHOMUON"));
+                 listDauSach.add(ds);
+             }   
+                
+            } catch (SQLException e) {
+                throw new ArithmeticException(e.getMessage());
+            }
+        return listDauSach;
     }
 }

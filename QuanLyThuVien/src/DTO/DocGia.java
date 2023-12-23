@@ -7,7 +7,7 @@ package DTO;
 import java.sql.Date; 
 
 public class DocGia {
-    private int loaiDocGia;
+    private int maDocGia,loaiDocGia;
     private String hoTen, diaChi, email;
     private Date ngaySinh, ngayLapThe, ngayDenHan;
     private int tienNo;
@@ -18,7 +18,8 @@ public class DocGia {
         this.ngaySinh=new Date(System.currentTimeMillis());
     }
 
-    public DocGia(int loaiDocGia, String hoTen, String diaChi, String email, Date ngaySinh, Date ngayLapThe, Date ngayDenHan, int tienNo) {
+    public DocGia(int maDocGia,int loaiDocGia, String hoTen, String diaChi, String email, Date ngaySinh, Date ngayLapThe, Date ngayDenHan, int tienNo) {
+        this.maDocGia=maDocGia;
         this.loaiDocGia = loaiDocGia;
         this.hoTen = hoTen;
         this.diaChi = diaChi;
@@ -47,6 +48,14 @@ public class DocGia {
     
     public Date getNgaySinh() {
         return this.ngaySinh;
+    }
+
+    public void setMaDocGia(int maDocGia) {
+        this.maDocGia = maDocGia;
+    }
+
+    public int getMaDocGia() {
+        return maDocGia;
     }
     public void setNgaySinh(Date ns) {
         this.ngaySinh = ns;

@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.sql.*;
 import javax.swing.*;
 import DAO.*;
+import DTO.DauSach;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,17 +22,15 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Calendar;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 //testcommit
 public class QuanLyTheDocGiaPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form QuanLyDocGia
      */
-    public static String sql = "select * from DOCGIA order by MADOCGIA asc";
-    public static PreparedStatement pst = null;
-    public static ResultSet rs = null;
-    public static Connection conn = Connect.getConnect();
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
    
     public QuanLyTheDocGiaPanel() {
         initComponents();
@@ -76,20 +75,26 @@ public class QuanLyTheDocGiaPanel extends javax.swing.JPanel {
         btThemMoi = new javax.swing.JButton();
         btCapNhat = new javax.swing.JButton();
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(205, 245, 253));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setPreferredSize(new java.awt.Dimension(309, 395));
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Họ tên");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Ngày sinh");
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Loại độc giả");
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Địa chỉ");
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Email");
 
+        LTlb.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LTlb.setText("Ngày lập thẻ");
 
         txtMaDocGia.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -99,10 +104,11 @@ public class QuanLyTheDocGiaPanel extends javax.swing.JPanel {
             }
         });
 
+        DHLb.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         DHLb.setText("Ngày đến hạn");
 
-        btnGiaHan.setBackground(new java.awt.Color(255, 0, 0));
-        btnGiaHan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnGiaHan.setBackground(new java.awt.Color(12, 53, 106));
+        btnGiaHan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnGiaHan.setForeground(new java.awt.Color(255, 255, 255));
         btnGiaHan.setText("Gia hạn độc giả");
         btnGiaHan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -116,13 +122,15 @@ public class QuanLyTheDocGiaPanel extends javax.swing.JPanel {
 
         txtNgayDenHan.setEditable(false);
 
-        rdbtSinhVien.setBackground(new java.awt.Color(255, 204, 204));
+        rdbtSinhVien.setBackground(new java.awt.Color(205, 245, 253));
         btnGroup.add(rdbtSinhVien);
+        rdbtSinhVien.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         rdbtSinhVien.setText("sinh viên");
         rdbtSinhVien.setToolTipText("");
 
-        rdbtGiangVien.setBackground(new java.awt.Color(255, 204, 204));
+        rdbtGiangVien.setBackground(new java.awt.Color(205, 245, 253));
         btnGroup.add(rdbtGiangVien);
+        rdbtGiangVien.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         rdbtGiangVien.setText("giảng viên");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -212,11 +220,11 @@ public class QuanLyTheDocGiaPanel extends javax.swing.JPanel {
                 .addComponent(txtMaDocGia, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(205, 245, 253));
 
         jLabel1.setBackground(new java.awt.Color(255, 204, 204));
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(12, 53, 106));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("QUẢN LÝ THẺ ĐỘC GIẢ");
         jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 0, 204), null));
@@ -225,68 +233,69 @@ public class QuanLyTheDocGiaPanel extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
         );
 
+        tbDocGia.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tbDocGia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "MÃ ĐỘC GIẢ", "HỌ TÊN", "NGÀY SINH", "LOẠI DG", "ĐỊA CHỈ", "EMAIL", "NGÀY LẬP THẺ"
+                "Mã độc giả", "Họ tên", "Ngày sinh", "Loại độc giả", "Địa chỉ", "Email", "Ngày lập thẻ", "Ngày đến hạn", "Số tiền nợ"
             }
         ));
         tbDocGia.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -329,7 +338,7 @@ public class QuanLyTheDocGiaPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -351,35 +360,42 @@ public class QuanLyTheDocGiaPanel extends javax.swing.JPanel {
     private void tbDocGiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDocGiaMouseClicked
         // TODO add your handling code here:                                                  
         int selectedRow = this.tbDocGia.getSelectedRow();
-        if (selectedRow == -1) return;
-        int maDocGia = (int) (this.tbDocGia.getModel().getValueAt(selectedRow, 0));
-        String query = "SELECT * FROM DOCGIA WHERE MADOCGIA='" + maDocGia + "'";
-        ResultSet resultSet = DuLieuBang.ShowTextField(query);
-
-        try {
-            if (resultSet.next()) {
- 
-                this.txtMaDocGia.setText(resultSet.getString("MADOCGIA"));
-                this.txtHoTen.setText(resultSet.getString("HOTEN"));
-                this.jDateNgaySinh.setDate(resultSet.getDate("NGAYSINH"));
-
-                if (resultSet.getString("LOAIDG").equals(1)) {
-                    this.rdbtSinhVien.setSelected(true);
-                } else {
-                    this.rdbtGiangVien.setSelected(true);
-                }
-             
-                this.txtDiaChi.setText(resultSet.getString("DIACHI"));
-                this.txtEmail.setText(resultSet.getString("EMAIL"));
-                this.txtNgayLapThe.setText(resultSet.getString("NGLAPTHE"));
-                this.txtNgayDenHan.setText(resultSet.getString("NGDENHAN"));
-                this.btnGiaHan.setVisible(DAO.DocGiaDAO.KTHanThe(maDocGia));
+        if(selectedRow!=-1) {
+            DefaultTableModel model = (DefaultTableModel) this.tbDocGia.getModel();
+            this.txtMaDocGia.setText(String.valueOf(model.getValueAt(selectedRow, 0)));
+            this.txtHoTen.setText(String.valueOf(model.getValueAt(selectedRow, 1)));
+            try {
+                this.jDateNgaySinh.setDate(formatter.parse(String.valueOf(model.getValueAt(selectedRow, 2))));
+            } catch (ParseException ex) {
+                Logger.getLogger(QuanLyTheDocGiaPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(QuanLyTheDocGiaPanel.class.getName()).log(Level.SEVERE, null, ex);
+            if("Sinh viên".equals(String.valueOf(model.getValueAt(selectedRow, 3)))){
+                this.rdbtSinhVien.setSelected(true);
+            }
+            else {
+                this.rdbtGiangVien.setSelected(true);
+            }
+            this.txtDiaChi.setText(String.valueOf(model.getValueAt(selectedRow, 4)));
+            this.txtEmail.setText(String.valueOf(model.getValueAt(selectedRow, 5)));
+            this.txtNgayLapThe.setText(String.valueOf(model.getValueAt(selectedRow, 6)));
+            this.txtNgayDenHan.setText(String.valueOf(model.getValueAt(selectedRow, 7)));
+            if(DAO.DocGiaDAO.KTHanThe(Integer.parseInt(this.txtMaDocGia.getText()))){
+                this.btnGiaHan.setVisible(true);
+            }    
+            else {
+                this.btnGiaHan.setVisible(false);
+            }
         }
     }//GEN-LAST:event_tbDocGiaMouseClicked
     public final void lamMoi() {
+        DefaultTableModel model = (DefaultTableModel) this.tbDocGia.getModel();
+        model.setRowCount(0);
+        Vector<DocGia> listDocGia=DAO.DocGiaDAO.getListDocGia();
+        for (DocGia ds:listDocGia){
+            model.addRow(new Object[] {ds.getMaDocGia(),ds.getHoTen(),
+            ds.getNgaySinh(),((ds.getLoaiDocGia()==0)?"Sinh viên":"Giảng viên"),
+            ds.getDiaChi(),ds.getEmail(),ds.getNgayLapThe(),ds.getNgayDenHan(),ds.getTienNo()});
+        }
         txtMaDocGia.setText("");
         txtHoTen.setText("");
         jDateNgaySinh.setDate(null);
@@ -401,7 +417,6 @@ public class QuanLyTheDocGiaPanel extends javax.swing.JPanel {
         txtNgayDenHan.setText(formatter.format(ngayDenHan));
 
         btnGiaHan.setVisible(false);
-        DuLieuBang.Load(sql, tbDocGia);
     }
     private void btCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCapNhatActionPerformed
         // TODO add your handling code here:
@@ -449,7 +464,7 @@ public class QuanLyTheDocGiaPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ", "Thông báo", 1);
         }
         else if (DAO.DocGiaDAO.KTNgaySinh(new java.sql.Date(jDateNgaySinh.getDate().getTime()), new java.sql.Date(new Date().getTime()))==false){
-            JOptionPane.showMessageDialog(null, "Ngày sinh lon hon ngay lap the", "Thông báo", 1);
+            JOptionPane.showMessageDialog(null, "Ngày sinh phải nhỏ hơn ngày lập thẻ!", "Thông báo", 1);
         }
         else return true; 
         return false;
@@ -476,6 +491,7 @@ public class QuanLyTheDocGiaPanel extends javax.swing.JPanel {
                     dg.setNgayDenHan(new java.sql.Date(formatter.parse(this.txtNgayDenHan.getText()).getTime()));
                     DocGiaDAO.ThemDocGia(dg);
                     lamMoi();
+                    
                 }
                 
             }

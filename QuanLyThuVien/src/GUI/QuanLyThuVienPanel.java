@@ -50,12 +50,12 @@ public class QuanLyThuVienPanel extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(205, 245, 253));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.pink, null));
 
         jLabel1.setBackground(new java.awt.Color(204, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 23)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 23)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(12, 53, 106));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-library-50.png"))); // NOI18N
         jLabel1.setText("QUẢN LÝ THƯ VIỆN");
@@ -64,18 +64,18 @@ public class QuanLyThuVienPanel extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(205, 245, 253));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.pink, null));
 
-        btTheDocGia.setBackground(new java.awt.Color(255, 51, 102));
-        btTheDocGia.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btTheDocGia.setBackground(new java.awt.Color(12, 53, 106));
+        btTheDocGia.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btTheDocGia.setForeground(new java.awt.Color(255, 255, 255));
         btTheDocGia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-reading-50.png"))); // NOI18N
         btTheDocGia.setText("QUẢN LÝ THẺ ĐỘC GIẢ");
@@ -86,8 +86,8 @@ public class QuanLyThuVienPanel extends javax.swing.JFrame {
             }
         });
 
-        btDauSach.setBackground(new java.awt.Color(255, 51, 102));
-        btDauSach.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btDauSach.setBackground(new java.awt.Color(12, 53, 106));
+        btDauSach.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btDauSach.setForeground(new java.awt.Color(255, 255, 255));
         btDauSach.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-book-50.png"))); // NOI18N
         btDauSach.setText("QUẢN LÝ ĐẦU SÁCH");
@@ -98,8 +98,8 @@ public class QuanLyThuVienPanel extends javax.swing.JFrame {
             }
         });
 
-        btPhieuMuonSach.setBackground(new java.awt.Color(255, 51, 102));
-        btPhieuMuonSach.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btPhieuMuonSach.setBackground(new java.awt.Color(12, 53, 106));
+        btPhieuMuonSach.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btPhieuMuonSach.setForeground(new java.awt.Color(255, 255, 255));
         btPhieuMuonSach.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-borrow-book-50.png"))); // NOI18N
         btPhieuMuonSach.setText("PHIẾU MƯỢN SÁCH");
@@ -110,8 +110,8 @@ public class QuanLyThuVienPanel extends javax.swing.JFrame {
             }
         });
 
-        btPhieuTraSach.setBackground(new java.awt.Color(255, 51, 102));
-        btPhieuTraSach.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btPhieuTraSach.setBackground(new java.awt.Color(12, 53, 106));
+        btPhieuTraSach.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btPhieuTraSach.setForeground(new java.awt.Color(255, 255, 255));
         btPhieuTraSach.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-return-book-50.png"))); // NOI18N
         btPhieuTraSach.setText("PHIẾU TRẢ SÁCH");
@@ -122,8 +122,8 @@ public class QuanLyThuVienPanel extends javax.swing.JFrame {
             }
         });
 
-        btTrangChu.setBackground(new java.awt.Color(255, 51, 102));
-        btTrangChu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btTrangChu.setBackground(new java.awt.Color(12, 53, 106));
+        btTrangChu.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btTrangChu.setForeground(new java.awt.Color(255, 255, 255));
         btTrangChu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-home-50.png"))); // NOI18N
         btTrangChu.setText("TRANG CHỦ");
@@ -134,6 +134,7 @@ public class QuanLyThuVienPanel extends javax.swing.JFrame {
             }
         });
 
+        btThoat.setForeground(new java.awt.Color(12, 53, 106));
         btThoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-export-50.png"))); // NOI18N
         btThoat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,8 +144,8 @@ public class QuanLyThuVienPanel extends javax.swing.JFrame {
 
         lbuser.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
 
-        btThongKe.setBackground(new java.awt.Color(255, 51, 102));
-        btThongKe.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btThongKe.setBackground(new java.awt.Color(12, 53, 106));
+        btThongKe.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btThongKe.setForeground(new java.awt.Color(255, 255, 255));
         btThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-business-report-50.png"))); // NOI18N
         btThongKe.setText("BÁO CÁO THỐNG KÊ");
@@ -155,8 +156,8 @@ public class QuanLyThuVienPanel extends javax.swing.JFrame {
             }
         });
 
-        bHoaDon.setBackground(new java.awt.Color(255, 51, 102));
-        bHoaDon.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        bHoaDon.setBackground(new java.awt.Color(12, 53, 106));
+        bHoaDon.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         bHoaDon.setForeground(new java.awt.Color(255, 255, 255));
         bHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/bill.png"))); // NOI18N
         bHoaDon.setText("QUẢN LÝ HÓA ĐƠN");

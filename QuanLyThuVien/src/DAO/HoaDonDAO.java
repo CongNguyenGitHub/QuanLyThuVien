@@ -55,11 +55,12 @@ public class HoaDonDAO {
     }
 
     public static void ThemHoaDon(HoaDon hd) {
-        String sql="{call THEMHOADON(?, ?)}";
-        try (CallableStatement stmt = conn.prepareCall(sql);) {
-                stmt.setInt(1,hd.getMaDocGia());
-                stmt.setInt(2, hd.getTienThu());
-                stmt.execute();
+        String sql="{call THEMHOADON(?,?,?)}";
+        try (CallableStatement stm = conn.prepareCall(sql);) {
+                stm.setInt(1,hd.getMaDocGia());
+                stm.setDate(2,hd.getNgayHoaDon());
+                stm.setInt(3, hd.getTienThu());
+                stm.execute();
             } catch (SQLException e) {
                 throw new ArithmeticException(e.getMessage());
             }
@@ -76,6 +77,7 @@ public class HoaDonDAO {
                  hd.setMaHoaDon(rs.getInt("MAHD"));
                  hd.setMaDocGia(rs.getInt("MADOCGIA"));
                  hd.setTienThu(rs.getInt("TIENTHU"));
+                 hd.setNgayHoaDon(rs.getDate("NGHOADON"));
                  listHoaDon.add(hd);
                  
              }   
@@ -87,4 +89,21 @@ public class HoaDonDAO {
         return listHoaDon;
         
     }
+    public static String getTenDocGia(int maDocGia){
+        String sql="select HOTEN from DOCGIA where MADOCGIA=?";
+        String tenDocGia="";
+        try (PreparedStatement stm = conn.prepareStatement(sql)) {
+            stm.setInt(1,maDocGia);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+               tenDocGia=rs.getString("HOTEN");
+                }   
+                
+            } 
+            catch (SQLException e) {
+                throw new ArithmeticException(e.getMessage());
+            }
+        return tenDocGia;
+    }
+       
 }

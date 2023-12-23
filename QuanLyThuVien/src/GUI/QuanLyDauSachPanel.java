@@ -5,27 +5,18 @@
  */
 package GUI;
 
-/**
- *
- * @author nguyen
- */
+
 import DTO.DauSach;
 import java.awt.Color;
-import java.sql.*;
 import javax.swing.*;
-import DAO.*;
-//import com.sun.glass.events.KeyEvent;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 public class QuanLyDauSachPanel extends javax.swing.JPanel    {
 
     /**
      * Creates new form QuanLyDauSachPanel
      */
-    public static String sql = "SELECT * from DAUSACH ORDER BY MADAUSACH ASC";
-    public static PreparedStatement pst = null;
-    public static ResultSet rs = null;
-    public static Connection conn = Connect.getConnect();
-
     public QuanLyDauSachPanel(){
         initComponents();
         this.txtSanCo.setEnabled(false);
@@ -34,11 +25,20 @@ public class QuanLyDauSachPanel extends javax.swing.JPanel    {
         lamMoi();
     }
     public void lamMoi(){
-        DuLieuBang.Load(sql, tbDauSach);
+        DefaultTableModel model = (DefaultTableModel) this.tbDauSach.getModel();
+        model.setRowCount(0);
+        Vector<DauSach> listDauSach=DAO.DauSachDAO.getListDauSach();
+        for (DauSach ds:listDauSach){
+            model.addRow(new Object[] {ds.getMaDauSach(),ds.getTenDauSach(),
+                ds.getTacGia(),ds.getNXB(),ds.getNamXB(),
+                ds.getTongSo(),ds.getViTri(),
+                ds.getSanCo(),ds.getDangChoMuon()
+            });
+        }
         this.txtTenDauSach.setText("");
         this.txtTacGia.setText("");
         this.txtNXB.setText("");
-        this.txtNam.setText("");
+        this.txtNamXB.setText("");
         this.txtTongSo.setText("");
         this.txtViTri.setText("");
         this.txtSanCo.setVisible(false);
@@ -75,7 +75,7 @@ public class QuanLyDauSachPanel extends javax.swing.JPanel    {
         txtViTri = new javax.swing.JTextField();
         txtSanCo = new javax.swing.JTextField();
         txtDangChoMuon = new javax.swing.JTextField();
-        txtNam = new javax.swing.JTextField();
+        txtNamXB = new javax.swing.JTextField();
         txtMaDauSach = new javax.swing.JTextField();
         txtSanCocu = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -111,24 +111,32 @@ public class QuanLyDauSachPanel extends javax.swing.JPanel    {
         });
         jToolBar1.add(btCapNhat);
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(205, 245, 253));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.pink, null));
         jPanel1.setPreferredSize(new java.awt.Dimension(309, 394));
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Tên đầu sách");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Tác giả");
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Nhà XB");
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Năm XB");
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Tổng số");
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Vị trí");
 
+        labelSanCo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         labelSanCo.setText("Sẵn có");
 
+        labelDCM.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         labelDCM.setText("Đang cho mượn");
 
         txtSanCo.setEditable(false);
@@ -140,9 +148,9 @@ public class QuanLyDauSachPanel extends javax.swing.JPanel    {
 
         txtDangChoMuon.setEditable(false);
 
-        txtNam.addActionListener(new java.awt.event.ActionListener() {
+        txtNamXB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNamActionPerformed(evt);
+                txtNamXBActionPerformed(evt);
             }
         });
 
@@ -169,7 +177,7 @@ public class QuanLyDauSachPanel extends javax.swing.JPanel    {
                     .addComponent(txtViTri)
                     .addComponent(txtSanCo)
                     .addComponent(txtDangChoMuon)
-                    .addComponent(txtNam)
+                    .addComponent(txtNamXB)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtMaDauSach, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
@@ -195,7 +203,7 @@ public class QuanLyDauSachPanel extends javax.swing.JPanel    {
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNam, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNamXB, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -222,61 +230,13 @@ public class QuanLyDauSachPanel extends javax.swing.JPanel    {
 
         jScrollPane1.setWheelScrollingEnabled(false);
 
+        tbDauSach.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tbDauSach.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "MADAUSACH", "TENDAUSACH", "TACGIA", "NHAXB", "NAMXB", "TONGSO", "VITRI", "SANCO", "DANGCHOMUON"
+                "Mã đầu sách", "Tên đầu sách", "Tác giả", "Nhà XB", "Năm XB", "Tổng số", "Vị trí", "Sẵn có", "Đang cho mượn"
             }
         ));
         tbDauSach.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -286,10 +246,10 @@ public class QuanLyDauSachPanel extends javax.swing.JPanel    {
         });
         jScrollPane1.setViewportView(tbDauSach);
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(205, 245, 253));
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(12, 53, 106));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("QUẢN LÝ ĐẦU SÁCH");
         jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 0, 204), null));
@@ -334,30 +294,23 @@ public class QuanLyDauSachPanel extends javax.swing.JPanel    {
     private void tbDauSachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDauSachMouseClicked
         // TODO add your handling code here:
         int selectedRow=this.tbDauSach.getSelectedRow();
-        if(selectedRow==-1) return ;
-        int maDauSach=(int)(this.tbDauSach.getModel().getValueAt(selectedRow,0));
-        String query="SELECT * FROM DAUSACH WHERE MADAUSACH='"+maDauSach+"'";
-        ResultSet resultSet = DuLieuBang.ShowTextField(query);
-        try {
-            if (resultSet.next()) {
-                this.txtMaDauSach.setText(resultSet.getString("MADAUSACH"));
-                this.txtTenDauSach.setText(resultSet.getString("TENDAUSACH"));
-                this.txtTacGia.setText(resultSet.getString("TACGIA"));
-                this.txtNXB.setText(resultSet.getString("NXB"));
-                this.txtNam.setText(resultSet.getString("NAMXB"));
-                this.txtTongSo.setText(resultSet.getString("TONGSO"));
-                this.txtSanCo.setText(resultSet.getString("SANCO"));
-                this.txtViTri.setText(resultSet.getString("VITRI"));
-                this.txtDangChoMuon.setText(resultSet.getString("DANGCHOMUON"));
-                this.txtSanCocu.setText(resultSet.getString("SANCO"));
-                this.labelSanCo.setVisible(true);
-                this.labelDCM.setVisible(true);
-                this.txtSanCo.setVisible(true);
-                this.txtDangChoMuon.setVisible(true);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+        if(selectedRow!=-1) {
+            DefaultTableModel model = (DefaultTableModel) this.tbDauSach.getModel();
+            this.txtMaDauSach.setText(String.valueOf(model.getValueAt(selectedRow, 0)));
+            this.txtTenDauSach.setText(String.valueOf(model.getValueAt(selectedRow, 1)));
+            this.txtTacGia.setText(String.valueOf(model.getValueAt(selectedRow, 2)));
+            this.txtNXB.setText(String.valueOf(model.getValueAt(selectedRow, 3)));
+            this.txtNamXB.setText(String.valueOf(model.getValueAt(selectedRow, 4)));
+            this.txtTongSo.setText(String.valueOf(model.getValueAt(selectedRow, 5)));
+            this.txtViTri.setText(String.valueOf(String.valueOf(model.getValueAt(selectedRow, 6))));
+            this.txtSanCo.setText(String.valueOf(String.valueOf(model.getValueAt(selectedRow, 7))));
+            this.txtDangChoMuon.setText(String.valueOf(String.valueOf(String.valueOf(model.getValueAt(selectedRow, 8)))));
+            this.txtSanCo.setVisible(true);
+            this.txtDangChoMuon.setVisible(true);
+            this.labelSanCo.setVisible(true);
+            this.labelDCM.setVisible(true);
         }
+        
     }//GEN-LAST:event_tbDauSachMouseClicked
     boolean kiemTraThongTin(){
         if (this.txtTenDauSach.getText().isEmpty()){
@@ -369,7 +322,7 @@ public class QuanLyDauSachPanel extends javax.swing.JPanel    {
         else if(this.txtNXB.getText().isEmpty()){
             JOptionPane.showMessageDialog(null,"Bạn chưa nhập tên nhà xuất bản","Thông báo",1);
         }
-        else if(this.txtNam.getText().isEmpty()){
+        else if(this.txtNamXB.getText().isEmpty()){
             JOptionPane.showMessageDialog(null,"Bạn chưa nhập năm sản xuất","Thông báo",1);
         }
         else if(this.txtTongSo.getText().isEmpty()){
@@ -378,13 +331,13 @@ public class QuanLyDauSachPanel extends javax.swing.JPanel    {
         else if(this.txtViTri.getText().isEmpty()){
             JOptionPane.showMessageDialog(null,"Bạn chưa nhập vị trí","Thông báo",1);
         }
-        else if(!isNumeric(this.txtNam.getText())){
+        else if(!isNumeric(this.txtNamXB.getText())){
                 JOptionPane.showMessageDialog(null, "Năm sản xuất phải là số","Thông báo",1);
         }
         else if(!isNumeric(this.txtTongSo.getText())){
                 JOptionPane.showMessageDialog(null, "Tổng số phải là số","Thông báo",1);
         }
-        else if (!DAO.DauSachDAO.KTNamXB(Integer.parseInt(this.txtNam.getText()))){
+        else if (!DAO.DauSachDAO.KTNamXB(Integer.parseInt(this.txtNamXB.getText()))){
             JOptionPane.showMessageDialog(null, "Năm xuất bản phải bé hơn năm hiện tại","Thông báo",1);
         }
         else if (!DAO.DauSachDAO.KTTongSoThem(Integer.parseInt(this.txtTongSo.getText()))){
@@ -402,13 +355,14 @@ public class QuanLyDauSachPanel extends javax.swing.JPanel    {
             int result = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn thêm cuốn sách này", "Xác nhận", JOptionPane.YES_NO_OPTION);
             if (result == JOptionPane.YES_OPTION) {
                 DauSach ds=new DauSach();
-                ds.setTenDS(this.txtTenDauSach.getText());
+                ds.setTenDauSach(this.txtTenDauSach.getText());
                 ds.setTacGia(this.txtTacGia.getText());
                 ds.setNXB(this.txtNXB.getText());
-                ds.setNamXB(Integer.parseInt(this.txtNam.getText()));
+                ds.setNamXB(Integer.parseInt(this.txtNamXB.getText()));
                 ds.setTongSo(Integer.parseInt(this.txtTongSo.getText()));
                 ds.setViTri(this.txtViTri.getText());
-                ds.setSanCo();
+                ds.setSanCo(Integer.parseInt(this.txtTongSo.getText()));
+                ds.setDangChoMuon(0);
                 DAO.DauSachDAO.ThemDauSach(ds);
                 lamMoi();
             }
@@ -425,13 +379,14 @@ public class QuanLyDauSachPanel extends javax.swing.JPanel    {
                
                if(DAO.DauSachDAO.KTTongSoSua(Integer.parseInt(this.txtMaDauSach.getText()),Integer.parseInt(this.txtTongSo.getText()))){
                     DauSach ds=new DauSach();
-                    ds.setTenDS(this.txtTenDauSach.getText());
+                    ds.setTenDauSach(this.txtTenDauSach.getText());
                     ds.setTacGia(this.txtTacGia.getText());
                     ds.setNXB(this.txtNXB.getText());
-                    ds.setNamXB(Integer.parseInt(this.txtNam.getText()));
+                    ds.setNamXB(Integer.parseInt(this.txtNamXB.getText()));
                     ds.setTongSo(Integer.parseInt(this.txtTongSo.getText()));
                     ds.setViTri(this.txtViTri.getText());
-                    ds.setSanCo();
+                    ds.setSanCo(Integer.parseInt(this.txtTongSo.getText())-Integer.parseInt(this.txtDangChoMuon.getText()));
+                    ds.setDangChoMuon(Integer.parseInt(this.txtDangChoMuon.getText()));
                     DAO.DauSachDAO.SuaDauSach(ds, Integer.parseInt(this.txtMaDauSach.getText()));
                     lamMoi();
                }
@@ -445,9 +400,9 @@ public class QuanLyDauSachPanel extends javax.swing.JPanel    {
         
     }//GEN-LAST:event_btCapNhatActionPerformed
 
-    private void txtNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamActionPerformed
+    private void txtNamXBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamXBActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNamActionPerformed
+    }//GEN-LAST:event_txtNamXBActionPerformed
 
     private void txtSanCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSanCoActionPerformed
         // TODO add your handling code here:
@@ -474,7 +429,7 @@ public class QuanLyDauSachPanel extends javax.swing.JPanel    {
     private javax.swing.JTextField txtDangChoMuon;
     private javax.swing.JTextField txtMaDauSach;
     private javax.swing.JTextField txtNXB;
-    private javax.swing.JTextField txtNam;
+    private javax.swing.JTextField txtNamXB;
     private javax.swing.JTextField txtSanCo;
     private javax.swing.JTextField txtSanCocu;
     private javax.swing.JTextField txtTacGia;

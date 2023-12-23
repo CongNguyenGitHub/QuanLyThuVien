@@ -7,17 +7,12 @@ package DAO;
 import java.sql.Connection;
 import DTO.PhieuMuonSach;
 import java.sql.PreparedStatement;
-//import java.sql.CallableStatement;
 import java.sql.SQLException;
-//import java.util.Calendar;
 import java.sql.ResultSet;
-//import java.util.Map;
-//import java.util.Iterator;
-//import java.util.Map.Entry;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import java.sql.Date;
 public class PhieuMuonSachDAO {
     public static Connection conn = Connect.getConnect();
 
@@ -115,6 +110,27 @@ public class PhieuMuonSachDAO {
         }
 
         return tenDauSach;
+    }
+    public static Vector<Vector<Object>> getListPhieuMuonSach(){
+        String sql = "SELECT * from PHIEUMUONSACH ORDER BY MAPHIEUMUONSACH ASC";
+        Vector<Vector<Object>> listPMS = new Vector<Vector<Object>>();
+        try (PreparedStatement stm = conn.prepareStatement(sql)) {
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                int maPhieuMuonSach=rs.getInt("MAPHIEUMUONSACH");
+                String maDocGia=rs.getString("MADOCGIA");
+                Date ngayMuon=rs.getDate("NGAYMUON");
+                Vector<Object> row=new Vector<>();
+                row.add(maPhieuMuonSach);
+                row.add(maDocGia);
+                row.add(ngayMuon);
+                listPMS.add(row);
+            }
+
+        } catch (SQLException e) {
+            throw new ArithmeticException(e.getMessage());
+        }
+        return listPMS;
     }
     
 }

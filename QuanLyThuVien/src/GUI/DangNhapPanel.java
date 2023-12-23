@@ -39,11 +39,11 @@ public class DangNhapPanel extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(205, 245, 253));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.pink, null));
 
-        jBLogin.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jBLogin.setForeground(new java.awt.Color(255, 0, 51));
+        jBLogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jBLogin.setForeground(new java.awt.Color(12, 53, 106));
         jBLogin.setText("Đăng nhập");
         jBLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -51,8 +51,8 @@ public class DangNhapPanel extends javax.swing.JFrame {
             }
         });
 
-        jBLogOut.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jBLogOut.setForeground(new java.awt.Color(255, 0, 51));
+        jBLogOut.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jBLogOut.setForeground(new java.awt.Color(12, 53, 106));
         jBLogOut.setText("Thoát");
         jBLogOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,18 +60,19 @@ public class DangNhapPanel extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Mật khẩu");
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Tên đăng nhập");
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 153, 102));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(12, 53, 106));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("THƯ VIỆN ");
 
-        showPass.setBackground(new java.awt.Color(255, 204, 204));
+        showPass.setBackground(new java.awt.Color(205, 245, 253));
+        showPass.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         showPass.setText("Hiển thị mật khẩu");
         showPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

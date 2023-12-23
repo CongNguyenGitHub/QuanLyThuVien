@@ -27,7 +27,7 @@
                   <Component id="jPanel1" pref="350" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="718" max="32767" attributes="0"/>
           </Group>
           <Component id="jPanel2" max="32767" attributes="0"/>
       </Group>
@@ -80,7 +80,7 @@
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="cc" red="ff" type="rgb"/>
+          <Color blue="fd" green="f5" red="cd" type="rgb"/>
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -168,7 +168,7 @@
                       <Component id="btThemSach" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btXoaXach" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="49" max="32767" attributes="0"/>
+                  <EmptySpace pref="50" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -176,17 +176,26 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lbcbb">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="M&#xe3; &#x111;&#x1ed9;c gi&#x1ea3;"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Ng&#xe0;y m&#x1b0;&#x1ee3;n"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbMaDauSach">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="M&#xe3; &#x111;&#x1ea7;u s&#xe1;ch"/>
           </Properties>
         </Component>
@@ -199,11 +208,14 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="tbSachMuon">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="3" rowCount="0">
-                    <Column editable="true" title="MADAUSACH" type="java.lang.Object"/>
-                    <Column editable="true" title="TENDAUSACH" type="java.lang.Object"/>
-                    <Column editable="true" title="SOLUONG" type="java.lang.Object"/>
+                    <Column editable="true" title="M&#xe3; &#x111;&#x1ea7;u s&#xe1;ch" type="java.lang.Object"/>
+                    <Column editable="true" title="T&#xea;n &#x111;&#x1ea7;u s&#xe1;ch" type="java.lang.Object"/>
+                    <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -255,6 +267,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbTenDocGia">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="T&#xea;n &#x111;&#x1ed9;c gi&#x1ea3;"/>
           </Properties>
         </Component>
@@ -275,6 +290,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btThemSach">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Th&#xea;m s&#xe1;ch"/>
           </Properties>
           <Events>
@@ -283,6 +301,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng"/>
           </Properties>
         </Component>
@@ -290,6 +311,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btXoaXach">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="X&#xf3;a s&#xe1;ch"/>
           </Properties>
           <Events>
@@ -307,11 +331,14 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="tbPhieuMuonSach">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="3" rowCount="50">
-                <Column editable="true" title="MAPHIEUMUONSACH" type="java.lang.Object"/>
-                <Column editable="true" title="MADOCGIA" type="java.lang.Object"/>
-                <Column editable="true" title="NGAYMUON" type="java.lang.Object"/>
+                <Column editable="true" title="M&#xe3; phi&#x1ebf;u m&#x1b0;&#x1ee3;n s&#xe1;ch" type="java.lang.Object"/>
+                <Column editable="true" title="M&#xe3; &#x111;&#x1ed9;c gi&#x1ea3;" type="java.lang.Object"/>
+                <Column editable="true" title="Ng&#xe0;y m&#x1b0;&#x1ee3;n" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -346,14 +373,14 @@
     <Container class="javax.swing.JPanel" name="jPanel2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="cc" red="ff" type="rgb"/>
+          <Color blue="fd" green="f5" red="cd" type="rgb"/>
         </Property>
       </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jLabel1" alignment="1" pref="1074" max="32767" attributes="0"/>
+              <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -366,10 +393,10 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="24" style="0"/>
+              <Font name="Tahoma" size="24" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="33" green="0" red="ff" type="rgb"/>
+              <Color blue="6a" green="35" red="c" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="QU&#x1ea2;N L&#xdd; PHI&#x1ebe;U M&#x1af;&#x1ee2;N S&#xc1;CH"/>

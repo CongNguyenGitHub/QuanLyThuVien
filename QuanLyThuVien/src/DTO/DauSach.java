@@ -5,11 +5,12 @@
 package DTO;
 
 public class DauSach {
-    private String tenDS, tacGia, NXB, viTri;
-    private int namXB, tongSo, sanCo, dangChoMuon; 
+    private String tenDauSach, tacGia, NXB, viTri;
+    private int maDauSach,namXB, tongSo, sanCo, dangChoMuon; 
 
-    public DauSach(String tenDS, String tacGia, String NXB, String viTri, int namXB, int tongSo, int sanCo, int dangChoMuon) {
-        this.tenDS = tenDS;
+    public DauSach(int maDauSach, String tenDauSach, String tacGia, String NXB, String viTri, int namXB, int tongSo, int sanCo, int dangChoMuon) {
+        this.maDauSach = maDauSach;
+        this.tenDauSach = tenDauSach;
         this.tacGia = tacGia;
         this.NXB = NXB;
         this.viTri = viTri;
@@ -19,67 +20,83 @@ public class DauSach {
         this.dangChoMuon = dangChoMuon;
     }
 
+    
+
     public DauSach() {
-        this.tenDS=this.tacGia=this.NXB=this.viTri="";
-        this.namXB=this.tongSo=this.sanCo=this.dangChoMuon=0;
+        this.tenDauSach=this.tacGia=this.NXB=this.viTri="";
+        this.maDauSach=this.namXB=this.tongSo=this.sanCo=this.dangChoMuon=0;
     }
-    
-    
-    
-    public String getTenDS() {
-        return this.tenDS;
+
+    public int getMaDauSach() {
+        return maDauSach;
     }
-    public void setTenDS(String tds) {
-        this.tenDS = tds;
+
+    public String getTenDauSach() {
+        return tenDauSach;
     }
-    
+
     public String getTacGia() {
-        return this.tacGia;
+        return tacGia;
     }
-    public void setTacGia(String tg) {
-        this.tacGia = tg;
-    }
-    
+
     public String getNXB() {
-        return this.NXB;
+        return NXB;
     }
-    public void setNXB(String nxb) {
-        this.NXB = nxb;
-    }
-    
+
     public String getViTri() {
-        return this.viTri;
+        return viTri;
     }
-    public void setViTri(String vt) {
-        this.viTri = vt;
-    }
-    
+
     public int getNamXB() {
-        return this.namXB;
+        return namXB;
     }
-    public void setNamXB(int nam) {
-        this.namXB = nam;
-    }
-    
+
     public int getTongSo() {
-        return this.tongSo;
+        return tongSo;
     }
-    public void setTongSo(int ts) {
-        this.tongSo = ts;
-    }
-    
-    public int getDangChoMuon() {
-        return this.dangChoMuon;
-    }
-    public void setDangChoMuon(int sl) {
-        this.dangChoMuon = sl;
-    }
-    
+
     public int getSanCo() {
-        return this.sanCo;
+        return sanCo;
     }
-    public void setSanCo() {
-        this.sanCo = this.tongSo - this.dangChoMuon;
+
+    public int getDangChoMuon() {
+        return dangChoMuon;
     }
-    
+
+    public void setMaDauSach(int maDauSach) {
+        this.maDauSach = maDauSach;
+    }
+
+    public void setTenDauSach(String tenDauSach) {
+        this.tenDauSach = tenDauSach;
+    }
+
+    public void setTacGia(String tacGia) {
+        this.tacGia = tacGia;
+    }
+
+    public void setNXB(String NXB) {
+        this.NXB = NXB;
+    }
+
+    public void setViTri(String viTri) {
+        this.viTri = viTri;
+    }
+
+    public void setNamXB(int namXB) {
+        this.namXB = namXB;
+    }
+
+    public void setTongSo(int tongSo) {
+        this.tongSo = tongSo;
+    }
+
+    public void setSanCo(int sanCo) {
+        this.sanCo = sanCo;
+    }
+
+    public void setDangChoMuon(int dangChoMuon) {
+        this.dangChoMuon = dangChoMuon;
+    }
+  
 }
