@@ -261,7 +261,7 @@ public class BaoCaoThongKePanel extends javax.swing.JPanel {
         }
 
         JFreeChart barChart = ChartFactory.createBarChart( 
-                "Thống kê mượn sách",
+                "Thống kê tiền phạt",
                 "Mã độc giả","Tổng tiền phạt"
                 , dataset, PlotOrientation.VERTICAL, false, true, false);
         this.pnBarChart.removeAll();
