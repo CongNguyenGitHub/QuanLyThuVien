@@ -195,7 +195,7 @@ public class BaoCaoThongKePanel extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnBarChart, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 223, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -272,7 +272,6 @@ public class BaoCaoThongKePanel extends javax.swing.JPanel {
     private void jBTraCuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTraCuuActionPerformed
         // TODO add your handling code here:
         if(kiemTraThongTin()){
-            
             int thang=this.cbThang.getSelectedIndex()+1;
             int nam=Integer.parseInt(this.txtNam.getText());
             DefaultTableModel model = (DefaultTableModel) tbTraCuu.getModel();

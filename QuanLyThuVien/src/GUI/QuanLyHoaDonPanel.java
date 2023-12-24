@@ -31,6 +31,7 @@ public class QuanLyHoaDonPanel extends javax.swing.JPanel {
         this.txtTongTienNo.setEnabled(false);
         this.tbHoaDon.setVisible(true);
         this.txtHoTen.setEnabled(false);
+        this.txtNgayHoaDon.setEnabled(false);
         lamMoi();
     }
 
@@ -60,6 +61,7 @@ public class QuanLyHoaDonPanel extends javax.swing.JPanel {
         txtNgayHoaDon = new javax.swing.JTextField();
         jToolBar1 = new javax.swing.JToolBar();
         btThemMoi = new javax.swing.JButton();
+        btXoa = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -204,6 +206,17 @@ public class QuanLyHoaDonPanel extends javax.swing.JPanel {
         });
         jToolBar1.add(btThemMoi);
 
+        btXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-delete-50.png"))); // NOI18N
+        btXoa.setFocusable(false);
+        btXoa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btXoa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btXoaActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btXoa);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -315,9 +328,29 @@ public class QuanLyHoaDonPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtHoTenActionPerformed
 
+    private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed
+        int selectedRow = this.tbHoaDon.getSelectedRow();
+        if (selectedRow != -1) {
+            
+            int result = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa hóa đơn này", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (result == JOptionPane.YES_OPTION) {
+                int modelRow = this.tbHoaDon.convertRowIndexToModel(selectedRow);
+
+                // Lấy mô hình dữ liệu của JTable
+                DefaultTableModel model = (DefaultTableModel) this.tbHoaDon.getModel();
+
+                // Xóa dòng từ mô hình dữ liệu
+                model.removeRow(modelRow);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Chọn một dòng để xóa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btXoaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btThemMoi;
+    private javax.swing.JButton btXoa;
     private javax.swing.JComboBox<String> cbMaDocGia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
